@@ -55,15 +55,13 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 }
 
 export async function getStaticProps({ params }) {
   const mongo_client = await MongoClient.connect(process.env.DATABASE_URI);
   const db = mongo_client.db();
-
-  console.log(params);
 
   const data = await db
     .collection("meetups")
