@@ -1,4 +1,4 @@
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -10,8 +10,6 @@ export default function LoginPage() {
 
   function submitHandler(e) {
     e.preventDefault();
-
-    console.log(form);
   }
 
   function handleChange(field, value) {
