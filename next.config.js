@@ -7,5 +7,8 @@ module.exports = {
   env: {
     DATABASE_URI:
       "mongodb+srv://yanvenuslab:eSpU77xvkep9ucv8ArUn@cluster0.umd4j.mongodb.net/meetup?retryWrites=true&w=majority",
+
+    JWT_SECRETE: "ilovekoreanactresses",
+    JWT_EXPIRES_IN: "24h",
   },
 };
