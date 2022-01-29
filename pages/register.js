@@ -21,7 +21,7 @@ export default function LoginPage() {
     }).then((res) => res.json());
 
     if (result.status === "success") {
-      router.replace("/new-meetup");
+      router.replace("/");
     }
   }
 

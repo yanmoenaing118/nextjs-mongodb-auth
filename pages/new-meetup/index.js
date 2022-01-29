@@ -1,13 +1,18 @@
 import NewMeetupForm from "../../components/meetup/NewMeetupForm";
 import { useRouter } from "next/router";
-import useSWR from "swr";
 import { useEffect } from "react";
 import Head from "next/head";
-import { fetcher } from "../../lib/fetcher";
+import useToken from "../../lib/auth/useToken";
+import Link from "next/link";
 
 export default function NewMeetupPage() {
-  const { data } = useSWR("/api/auth", fetcher);
+  const { token } = useToken();
   const router = useRouter();
+
+  useEffect(() => {
+    console.log("token ", token);
+  }, [token]);
+
   async function addMeetupHander(meetup) {
     const response = await fetch("/api/new-meetup", {
       method: "POST",
@@ -24,17 +29,19 @@ export default function NewMeetupPage() {
     router.push("/");
   }
 
-  useEffect(() => {
-    if (!data || !data.isLoggedIn) router.replace("/login");
-  }, [data]);
-
   return (
     <>
       <Head>
         <title>Add New Meetup</title>
         <meta name="description" content="Add new meetup" />
       </Head>
-      <NewMeetupForm onAddMeetup={addMeetupHander} />
+      {!token ? (
+        <Link href="/login">
+          <a>Login to add a meetup</a>
+        </Link>
+      ) : (
+        <NewMeetupForm onAddMeetup={addMeetupHander} />
+      )}
     </>
   );
 }

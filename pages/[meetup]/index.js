@@ -1,8 +1,17 @@
 import { MongoClient, ObjectId } from "mongodb";
 import Image from "next/image";
 import Head from "next/head";
+import useToken from "../../lib/auth/useToken";
+import { useEffect } from "react";
+import router from "next/router";
+import Link from "next/link";
 export default function MeetupDetailsPage({ meetup }) {
-  console.log(meetup);
+  const { token } = useToken();
+
+  useEffect(() => {
+    console.log(token);
+  }, [token]);
+
   return (
     <>
       <Head>
@@ -10,20 +19,28 @@ export default function MeetupDetailsPage({ meetup }) {
         <meta name="description" content={meetup.description} />
       </Head>
       <div className="container">
-        <div className="img">
-          <Image
-            src={meetup.image}
-            alt={meetup.title}
-            width={800}
-            height={400}
-            layout="responsive"
-            objectFit="cover"
-          />
-        </div>
+        {!token ? (
+          <Link href="/login">
+            <a>Login to view meetup details</a>
+          </Link>
+        ) : (
+          <>
+            <div className="img">
+              <Image
+                src={meetup.image}
+                alt={meetup.title}
+                width={800}
+                height={400}
+                layout="responsive"
+                objectFit="cover"
+              />
+            </div>
 
-        <h1>{meetup.title}</h1>
-        <address>{meetup.address}</address>
-        <p>{meetup.description}</p>
+            <h1>{meetup.title}</h1>
+            <address>{meetup.address}</address>
+            <p>{meetup.description}</p>
+          </>
+        )}
         <style jsx>{`
         .container {
 

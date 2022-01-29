@@ -1,8 +1,10 @@
 import MeetupList from "./../components/meetup/MeetupList";
 import { MongoClient } from "mongodb";
 import Head from "next/head";
+import useToken from "../lib/auth/useToken";
 
 export default function Home({ meetups, data }) {
+  const { token } = useToken();
   return (
     <>
       <Head>
@@ -12,7 +14,7 @@ export default function Home({ meetups, data }) {
           content="Browse a huge list of highly active React Meetups"
         />
       </Head>
-      <MeetupList meetups={meetups} />
+      <MeetupList meetups={meetups} token={token} />
     </>
   );
 }

@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useToken from "../lib/auth/useToken";
 
-function MainNavigation({ user, loading, onLogout }) {
+function MainNavigation() {
   const router = useRouter();
 
+  const { token, loading, logout } = useToken();
+
   function handleClick() {
-    if (user) {
-      return onLogout();
+    if (token) {
+      return logout();
     }
     router.push("/login");
   }
@@ -23,9 +26,11 @@ function MainNavigation({ user, loading, onLogout }) {
             <Link href="/new-meetup">Add New Meetup</Link>
           </li>
           <li>
-            <button onClick={handleClick}>
-              {loading ? "" : user ? "Logout" : "Login"}
-            </button>
+            {!loading && (
+              <button onClick={handleClick}>
+                {token ? "Logout" : "Login"}
+              </button>
+            )}
           </li>
         </ul>
       </nav>

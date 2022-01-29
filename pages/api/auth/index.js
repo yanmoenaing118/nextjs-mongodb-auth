@@ -4,15 +4,7 @@ async function handler(req, res) {
   const user = req.session.user;
   const token = req.session.token;
 
-  if (!user || !token) {
-    return res.status(401).json({
-      error: true,
-      message: "Unauthorized access:(",
-      isLoggedIn: false,
-    });
-  }
-
-  res.status(200).json({ user, token, isLoggedIn: true });
+  res.status(200).json({ user, token });
 }
 
 export default withSessionRoute(handler);
