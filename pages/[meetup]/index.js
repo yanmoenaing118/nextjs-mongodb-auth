@@ -26,14 +26,7 @@ export default function MeetupDetailsPage({ meetup }) {
         ) : (
           <>
             <div className="img">
-              <Image
-                src={meetup.image}
-                alt={meetup.title}
-                width={800}
-                height={400}
-                layout="responsive"
-                objectFit="cover"
-              />
+              <img src={meetup.image} alt={meetup.title} />
             </div>
 
             <h1>{meetup.title}</h1>
@@ -42,8 +35,19 @@ export default function MeetupDetailsPage({ meetup }) {
           </>
         )}
         <style jsx>{`
-        .container {
+          .container {
+            width: 100%;
+          }
+        .img {
 
+          max-width: 800px;
+          margin: 0 auto;
+          height: auto;
+
+        }
+
+        img {
+          width: 100%;
         }
 
           position: relative;

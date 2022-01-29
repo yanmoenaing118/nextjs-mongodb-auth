@@ -1,9 +1,10 @@
 import MainNavigation from "./MainNavigation";
 import classes from "./Layout.module.css";
-import useToken from "../lib/auth/useToken";
+import PageTransitionEffect from "./ProgressBar";
 function Layout(props) {
   return (
     <div>
+      <PageTransitionEffect />
       <MainNavigation
         token={false}
         onLogout={() => {
