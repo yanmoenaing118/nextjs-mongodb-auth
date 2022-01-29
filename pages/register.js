@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -8,8 +9,20 @@ export default function LoginPage() {
     passwordConfirm: "",
   });
 
-  function submitHandler(e) {
+  const router = useRouter();
+  async function submitHandler(e) {
     e.preventDefault();
+    const result = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    }).then((res) => res.json());
+
+    if (result.status === "success") {
+      router.replace("/new-meetup");
+    }
   }
 
   function handleChange(field, value) {
@@ -18,7 +31,7 @@ export default function LoginPage() {
 
   return (
     <div>
-      <header>login</header>
+      <header>Register an account</header>
       <form onSubmit={submitHandler}>
         <div>
           <label htmlFor="name">Full Name: </label>

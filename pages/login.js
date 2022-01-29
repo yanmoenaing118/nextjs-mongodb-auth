@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -6,10 +8,10 @@ export default function LoginPage() {
     password: "",
   });
 
+  const router = useRouter();
+
   async function submitHandler(e) {
     e.preventDefault();
-
-    console.log(form);
     const result = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
@@ -18,7 +20,9 @@ export default function LoginPage() {
       body: JSON.stringify(form),
     }).then((res) => res.json());
 
-    console.log(result);
+    if (result.status === "success") {
+      router.replace("/new-meetup");
+    }
   }
 
   function handleChange(field, value) {
@@ -49,6 +53,12 @@ export default function LoginPage() {
           <input type="submit" />
         </div>
       </form>
+      <div>
+        Don't have an account?
+        <Link href="/register">
+          <a>regiter an account</a>
+        </Link>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import classes from "./MainNavigation.module.css";
-
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -10,13 +8,12 @@ function MainNavigation({ user, loading, onLogout }) {
     if (user) {
       return onLogout();
     }
-
     router.push("/login");
   }
 
   return (
-    <header className={classes.header}>
-      <div className={classes.logo}>React Meetups</div>
+    <header className="header">
+      <div className="logo">React Meetups</div>
       <nav>
         <ul>
           <li>
@@ -34,6 +31,26 @@ function MainNavigation({ user, loading, onLogout }) {
       </nav>
 
       <style jsx>{`
+        header {
+          height: 70px;
+          display: flex;
+          justify-content: space-between;
+          padding: 0 3em;
+          align-items: center;
+
+          box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        ul {
+          display: flex;
+          list-style: none;
+          align-items: center;
+        }
+
+        ul li {
+          margin: 0.55em;
+        }
+
         button {
           border: none;
           background: #fff;

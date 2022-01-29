@@ -4,8 +4,6 @@ async function handler(req, res) {
   const user = req.session.user;
   const token = req.session.token;
 
-  console.log(user, token);
-
   if (!user || !token) {
     return res.status(401).json({
       error: true,

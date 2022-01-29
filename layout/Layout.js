@@ -1,8 +1,8 @@
 import MainNavigation from "./MainNavigation";
 import classes from "./Layout.module.css";
-import useAuth from "./../../lib/auth/useAuth";
+import useToken from "../lib/auth/useToken";
 function Layout(props) {
-  const { user, loading, logout } = useAuth();
+  const { user, loading, logout } = useToken();
 
   return (
     <div>
