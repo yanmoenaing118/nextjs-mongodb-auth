@@ -1,6 +1,6 @@
 import { withSessionRoute } from "../../../lib/session";
 async function handler(req, res) {
-  req.session.destroy();
+  await req.session.destroy();
 
   res.status(200).json({
     iLoggedIn: false,
