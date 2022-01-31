@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import useToken from "../lib/auth/useToken";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -9,20 +10,21 @@ export default function LoginPage() {
   });
 
   const router = useRouter();
+  const { mutate } = useToken();
 
   async function submitHandler(e) {
     e.preventDefault();
-    const result = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    }).then((res) => res.json());
+    mutate(
+      await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      }).then((res) => res.json())
+    );
 
-    if (result.status === "success") {
-      router.replace("/");
-    }
+    router.replace("/");
   }
 
   function handleChange(field, value) {
