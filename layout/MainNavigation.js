@@ -7,9 +7,9 @@ function MainNavigation() {
 
   const { token, loading, logout } = useToken();
 
-  function handleClick() {
+  async function handleClick() {
     if (token) {
-      return logout();
+      return await logout();
     }
     router.push("/login");
   }
