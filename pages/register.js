@@ -12,7 +12,7 @@ export default function LoginPage() {
 
   const router = useRouter();
 
-  const { user, mutate } = useToken();
+  const { mutate } = useToken();
 
   async function submitHandler(e) {
     e.preventDefault();

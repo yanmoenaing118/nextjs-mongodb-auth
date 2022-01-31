@@ -20,10 +20,14 @@ function MainNavigation() {
       <nav>
         <ul>
           <li>
-            <Link href="/">All Meetups</Link>
+            <Link href="/">
+              <a>All Records</a>
+            </Link>
           </li>
           <li>
-            <Link href="/new-meetup">Add New Meetup</Link>
+            <Link href="/new-meetup">
+              <a>New Record</a>
+            </Link>
           </li>
           <li>
             {!loading && (
@@ -55,7 +59,15 @@ function MainNavigation() {
         ul li {
           margin: 0.55em;
         }
+        ul li a {
+          font-size: 0.9rem;
+          transition: all 0.1s ease;
+          padding: 0.3em;
+        }
 
+        ul li a:hover {
+          box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+        }
         button {
           border: none;
           background: #fff;
