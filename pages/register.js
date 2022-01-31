@@ -27,7 +27,7 @@ export default function LoginPage() {
       }).then((res) => res.json())
     );
 
-    console.log("new user ", user);
+    router.replace("/");
   }
 
   function handleChange(field, value) {
