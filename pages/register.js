@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import useToken from "../lib/auth/useToken";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -10,19 +11,23 @@ export default function LoginPage() {
   });
 
   const router = useRouter();
+
+  const { user, mutate } = useToken();
+
   async function submitHandler(e) {
     e.preventDefault();
-    const result = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    }).then((res) => res.json());
 
-    if (result.status === "success") {
-      router.replace("/");
-    }
+    mutate(
+      await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      }).then((res) => res.json())
+    );
+
+    console.log("new user ", user);
   }
 
   function handleChange(field, value) {
