@@ -16,7 +16,7 @@ function MainNavigation() {
 
   return (
     <header className="header">
-      <div className="logo">React Meetups</div>
+      <div className="logo">My love</div>
       <nav>
         <ul>
           <li>
@@ -29,6 +29,16 @@ function MainNavigation() {
               <a>New Record</a>
             </Link>
           </li>
+          {!loading && token && (
+            <li>
+              <button onClick={() => router.push("/account")}>
+                profile(SSG)
+              </button>
+              <button onClick={() => router.push("/account-ssr")}>
+                profile(SSR)
+              </button>
+            </li>
+          )}
           <li>
             {!loading && (
               <button onClick={handleClick}>
