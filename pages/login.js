@@ -80,7 +80,20 @@ export default function LoginPage() {
           cookiePolicy={"single_host_origin"}
         />
       </div>
-      <div></div>
+      <div className="guest">
+        <p><strong>If you don't want to register!</strong></p>
+        <p>email: love@gmail.com</p>
+        <p>password: abcde</p>
+      </div>
+      <style jsx>{`
+        .guest {
+          width: 90%;
+          max-width: 320px;
+          margin: auto;
+          background: red;
+          color: #fff;
+        }
+        `}</style>
     </div>
   );
 }

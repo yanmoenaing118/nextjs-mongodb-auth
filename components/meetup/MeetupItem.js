@@ -6,9 +6,6 @@ function MeetupItem(props) {
   const router = useRouter();
 
   function showDetailsHandler() {
-    if (!props.token) {
-      return router.push("/login");
-    }
 
     router.push(`/${props.id}`);
   }
