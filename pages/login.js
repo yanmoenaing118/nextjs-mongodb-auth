@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import useToken from "../lib/auth/useToken";
+import GoogleLogin from "react-google-login";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -29,6 +30,15 @@ export default function LoginPage() {
 
   function handleChange(field, value) {
     setForm({ ...form, [field]: value });
+  }
+
+  function handleSuccess({ profileObj, tokenId }) {
+    console.log("success ", profileObj);
+    console.log("token", tokenId);
+  }
+
+  function handleFail(result) {
+    console.log("fail ", result);
   }
 
   return (
@@ -61,6 +71,16 @@ export default function LoginPage() {
           <a>regiter an account</a>
         </Link>
       </div>
+      <div>
+        <GoogleLogin
+          clientId={process.env.GOOGLE_CLIENT_ID}
+          buttonText="Continue with Google"
+          onSuccess={handleSuccess}
+          onFailure={handleFail}
+          cookiePolicy={"single_host_origin"}
+        />
+      </div>
+      <div></div>
     </div>
   );
 }

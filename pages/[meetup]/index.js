@@ -1,17 +1,28 @@
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { MongoClient, ObjectId } from "mongodb";
 import Image from "next/image";
+import MeetupList from "../../components/meetup/MeetupList";
 import Head from "next/head";
 import useToken from "../../lib/auth/useToken";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import router from "next/router";
 import Link from "next/link";
+import useMeetups from "../../lib/useMeetups";
 export default function MeetupDetailsPage({ meetup }) {
   const { token } = useToken();
+  const { meetups } = useMeetups();
 
+  const [love, setLove] = useState(false);
+
+  function toggleLove() {
+    if(!token) {
+      return router.push("/login");
+    }
+    setLove(!love);
+  }
   useEffect(() => {
-    console.log(token);
-  }, [token]);
-
+    console.log(meetups);
+  }, [meetups]);
   return (
     <>
       <Head>
@@ -19,40 +30,36 @@ export default function MeetupDetailsPage({ meetup }) {
         <meta name="description" content={meetup.description} />
       </Head>
       <div className="container">
-        {!token ? (
-          <Link href="/login">
-            <a>Login to view meetup details</a>
-          </Link>
-        ) : (
-          <>
-            <div className="img">
-              <img src={meetup.image} alt={meetup.title} />
-            </div>
+        <div className="img">
+          <img src={meetup.image} alt={meetup.title} />
+        </div>
 
-            <h1>{meetup.title}</h1>
-            <address>{meetup.address}</address>
-            <p>{meetup.description}</p>
-          </>
-        )}
+        <h1>{meetup.title}</h1>
+        <div onClick={toggleLove}>
+          {love ? (
+            <AiFillHeart size={32} color="red" />
+          ) : (
+            <AiOutlineHeart size={32} color="red" />
+          )}
+        </div>
+        <address>{meetup.address}</address>
+        <p>{meetup.description}</p>
+
+        {meetups && <MeetupList meetups={meetups} token={token} />}
         <style jsx>{`
           .container {
             width: 100%;
           }
-        .img {
+          .img {
+            max-width: 800px;
+            margin: 0 auto;
+            height: auto;
+          }
 
-          max-width: 800px;
-          margin: 0 auto;
-          height: auto;
-
-        }
-
-        img {
-          width: 100%;
-        }
-
-          position: relative;
-        }
-      `}</style>
+          img {
+            width: 100%;
+          }
+        `}</style>
       </div>
     </>
   );
